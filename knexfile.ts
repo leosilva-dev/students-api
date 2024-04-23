@@ -1,8 +1,8 @@
 import 'dotenv/config';
-import type { Knex } from 'knex';
+import { Knex } from 'knex';
 import path from 'node:path';
 
-const config: { [key: string]: Knex.Config } = {
+export const development: { [key: string]: Knex.Config } = {
   development: {
     client: 'postgresql',
     connection: {
@@ -19,4 +19,4 @@ const config: { [key: string]: Knex.Config } = {
   },
 };
 
-module.exports = config;
+module.exports = development;
