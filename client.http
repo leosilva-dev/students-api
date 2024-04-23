@@ -1,2 +1,31 @@
 ###
-GET http://localhost:3333/
+GET http://localhost:3333/alunos
+
+###
+GET http://localhost:3333/alunos/5
+
+###
+POST http://localhost:3333/alunos
+Content-Type: application/json
+
+{
+      "name": "Leonardo da Silva",
+      "email": "silvaleo.ti@gmail.com",
+      "cpf": "02092552008",
+      "ra": "123457"
+}
+
+###
+DELETE http://localhost:3333/alunos/64
+
+###
+PUT http://localhost:3333/alunos/65
+Content-Type: application/json
+
+{
+      "id":"65",
+      "name": "Leoandro S2 ----",
+      "email": "silvaleo.ti@gmail.com",
+      "cpf": "02092552008",
+      "ra": "123457"
+}
