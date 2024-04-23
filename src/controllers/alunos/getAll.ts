@@ -1,10 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+import { alunosProvider } from 'src/providers/alunos/alunosProvider';
 
-export const getAll = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+export const getAll = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
-    const data = ['recurso1', 'recurso2', 'recurso3'];
-
-    reply.send({ data });
+    const result = await alunosProvider.findMany();
+    reply.send({ result });
   } catch (error) {
     reply.status(500).send({ error: 'Erro ao obter recursos.' });
   }
