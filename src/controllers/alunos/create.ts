@@ -20,7 +20,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
       });
     }
 
-    reply.send({ result });
+    reply.send({ id: result });
   } catch (error) {
     reply.status(400).send({ error: 'Dados inválidos' });
   }

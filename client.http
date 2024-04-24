@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3333/alunos/64
+DELETE http://localhost:3333/alunos/1
 
 ###
 PUT http://localhost:3333/alunos/65
