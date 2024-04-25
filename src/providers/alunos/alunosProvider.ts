@@ -2,7 +2,7 @@ import { Knex } from 'src/database/knex/connection';
 import { ETableNames } from 'src/database/ETableNames';
 import { IAluno } from 'src/database/models';
 
-const findById = async (id: string): Promise<IAluno | undefined | Error> => {
+const getById = async (id: string): Promise<IAluno | undefined | Error> => {
   try {
     const result = await Knex(ETableNames.aluno).where({ id }).first();
     return result;
@@ -11,7 +11,7 @@ const findById = async (id: string): Promise<IAluno | undefined | Error> => {
   }
 };
 
-const findMany = async (): Promise<IAluno[] | Error> => {
+const getAll = async (): Promise<IAluno[] | Error> => {
   try {
     return Knex(ETableNames.aluno).select('*');
   } catch (error) {
@@ -55,8 +55,8 @@ const deleteById = async (id: string): Promise<boolean | Error> => {
 };
 
 export const alunosProvider = {
-  findById,
-  findMany,
+  getById,
+  getAll,
   create,
   updateById,
   deleteById,

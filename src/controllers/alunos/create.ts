@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { alunosProvider } from 'src/providers/alunos/alunosProvider';
+import { AlunosService } from 'src/service/alunoService';
 import z from 'zod';
 
-export const create = async (request: FastifyRequest, reply: FastifyReply) => {
+export const create = async (request: FastifyRequest, reply: FastifyReply, alunosService: AlunosService) => {
   try {
     const AlunoSchema = z.object({
       name: z.string(),
@@ -12,7 +12,7 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
     });
 
     const newAluno = AlunoSchema.parse(request.body);
-    const result = await alunosProvider.create(newAluno);
+    const result = await alunosService.create(newAluno);
 
     if (result instanceof Error) {
       return reply.status(500).send({

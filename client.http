@@ -2,30 +2,30 @@
 GET http://localhost:3333/alunos
 
 ###
-GET http://localhost:3333/alunos/5
+GET http://localhost:3333/alunos/66
 
 ###
 POST http://localhost:3333/alunos
 Content-Type: application/json
 
 {
-      "name": "Leonardo da Silva",
-      "email": "silvaleo.ti@gmail.com",
-      "cpf": "02092552008",
-      "ra": "123457"
+      "name": "Camila Diehl",
+      "email": "camila@gmail.com",
+      "cpf": "02092552005",
+      "ra": "123452"
 }
 
 ###
-DELETE http://localhost:3333/alunos/1
+DELETE http://localhost:3333/alunos/65
 
 ###
-PUT http://localhost:3333/alunos/65
+PUT http://localhost:3333/alunos/66
 Content-Type: application/json
 
 {
-      "id":"65",
-      "name": "Leoandro S2 ----",
-      "email": "silvaleo.ti@gmail.com",
-      "cpf": "02092552008",
-      "ra": "123457"
+      "id":"66",
+       "name": "Camila Diehl",
+      "email": "camiladiehl@gmail.com",
+      "cpf": "02092552005",
+      "ra": "123452"
 }

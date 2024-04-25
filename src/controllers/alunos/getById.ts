@@ -1,15 +1,15 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { alunosProvider } from 'src/providers/alunos/alunosProvider';
+import { AlunosService } from 'src/service/alunoService';
 import z from 'zod';
 
-export const getById = async (request: FastifyRequest, reply: FastifyReply) => {
+export const getById = async (request: FastifyRequest, reply: FastifyReply, alunosService: AlunosService) => {
   try {
     const idSchema = z.object({
       id: z.string(),
     });
 
     const { id } = idSchema.parse(request.params);
-    const result = await alunosProvider.findById(id);
+    const result = await alunosService.getById(id);
 
     if (!result || result instanceof Error) {
       return reply.status(500).send({
