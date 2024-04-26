@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import fastify from 'fastify';
-import routes from './routes';
+import { routes } from './routes/routes';
 
-const app = fastify();
+export const app = fastify();
 
 app.register(routes);
 
