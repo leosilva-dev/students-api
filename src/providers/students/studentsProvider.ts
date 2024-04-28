@@ -1,27 +1,27 @@
 import { Knex } from 'src/database/knex/connection';
 import { ETableNames } from 'src/database/ETableNames';
-import { IAluno } from 'src/database/models';
+import { IStudent } from 'src/database/models';
 
-const getById = async (id: string): Promise<IAluno | undefined | Error> => {
+const getById = async (id: string): Promise<IStudent | undefined | Error> => {
   try {
-    const result = await Knex(ETableNames.aluno).where({ id }).first();
+    const result = await Knex(ETableNames.students).where({ id }).first();
     return result;
   } catch (error) {
     return new Error('Erro ao buscar aluno.');
   }
 };
 
-const getAll = async (): Promise<IAluno[] | Error> => {
+const getAll = async (): Promise<IStudent[] | Error> => {
   try {
-    return Knex(ETableNames.aluno).select('*');
+    return Knex(ETableNames.students).select('id', 'name', 'email', 'cpf', 'ra');
   } catch (error) {
     return new Error('Erro ao buscar alunos.');
   }
 };
 
-const create = async (alunoData: Omit<IAluno, 'id'>): Promise<Pick<IAluno, 'id'> | Error> => {
+const create = async (studentData: Omit<IStudent, 'id'>): Promise<string | Error> => {
   try {
-    const [result] = await Knex(ETableNames.aluno).insert(alunoData).returning('id');
+    const [result] = await Knex(ETableNames.students).insert(studentData).returning('id');
 
     if (typeof result === 'object') {
       return result.id;
@@ -33,9 +33,13 @@ const create = async (alunoData: Omit<IAluno, 'id'>): Promise<Pick<IAluno, 'id'>
   }
 };
 
-const updateById = async (id: string, updateData: IAluno): Promise<IAluno | Error> => {
+const updateById = async (id: string, updateData: IStudent): Promise<IStudent | Error> => {
   try {
-    const result = await Knex(ETableNames.aluno).where({ id }).update(updateData).returning('*');
+    const result = await Knex(ETableNames.students)
+      .where({ id })
+      .update(updateData)
+      .returning(['id', 'name', 'email', 'cpf', 'ra']);
+
     if (result[0] === undefined) {
       return new Error('Erro ao editar aluno.');
     }
@@ -47,14 +51,14 @@ const updateById = async (id: string, updateData: IAluno): Promise<IAluno | Erro
 
 const deleteById = async (id: string): Promise<boolean | Error> => {
   try {
-    const result = await Knex(ETableNames.aluno).where({ id }).del();
+    const result = await Knex(ETableNames.students).where({ id }).del();
     return result === 1 ? true : false;
   } catch (error) {
     return new Error('Erro ao excluir aluno.');
   }
 };
 
-export const alunosProvider = {
+export const studentsProvider = {
   getById,
   getAll,
   create,

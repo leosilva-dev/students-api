@@ -1,11 +1,17 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { alunosController } from 'src/controllers/alunos';
-import { AlunosServiceImplementation } from 'src/service/alunoServiceImplementation';
+import { studentsController } from 'src/controllers/students';
+import { IDeleteParams } from 'src/controllers/students/deleteById';
+import { StudentRepository } from 'src/repositories/StudentRepository';
 
 export const deleteStudent = async (app: FastifyInstance) => {
   app.delete('/alunos/:id', async (request: FastifyRequest, reply: FastifyReply) => {
-    const alunosService = new AlunosServiceImplementation();
-    const result = await alunosController.deleteById(request, reply, alunosService);
-    reply.send({ result });
+    try {
+      const params = request.params as IDeleteParams;
+      const repository = new StudentRepository();
+      const result = await studentsController.deleteById(params, repository);
+      reply.send({ result });
+    } catch (error: any) {
+      reply.status(400).send({ error: error.message });
+    }
   });
 };

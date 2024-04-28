@@ -1,7 +1,7 @@
-import { IAluno } from '../../models';
+import { IStudent } from '../../models';
 
 declare module 'knex/types/tables' {
   interface Tables {
-    aluno: IAluno;
+    students: IStudent;
   }
 }

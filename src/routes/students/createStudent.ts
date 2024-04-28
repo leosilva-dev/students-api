@@ -1,11 +1,17 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { alunosController } from 'src/controllers/alunos';
-import { AlunosServiceImplementation } from 'src/service/alunoServiceImplementation';
+import { studentsController } from 'src/controllers/students';
+import { ICreateParams } from 'src/controllers/students/create';
+import { StudentRepository } from 'src/repositories/StudentRepository';
 
 export const createStudent = async (app: FastifyInstance) => {
   app.post('/alunos', async (request: FastifyRequest, reply: FastifyReply) => {
-    const alunosService = new AlunosServiceImplementation();
-    const result = await alunosController.create(request, reply, alunosService);
-    reply.send({ result });
+    try {
+      const params = request.body as ICreateParams;
+      const repository = new StudentRepository();
+      const result = await studentsController.create(params, repository);
+      reply.send({ result });
+    } catch (error: any) {
+      reply.code(400).send({ error: error.message });
+    }
   });
 };

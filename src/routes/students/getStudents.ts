@@ -1,11 +1,15 @@
-import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { alunosController } from 'src/controllers/alunos';
-import { AlunosServiceImplementation } from 'src/service/alunoServiceImplementation';
+import { FastifyInstance, FastifyReply } from 'fastify';
+import { studentsController } from 'src/controllers/students';
+import { StudentRepository } from 'src/repositories/StudentRepository';
 
 export const getStudents = async (app: FastifyInstance) => {
-  app.get('/alunos', async (request: FastifyRequest, reply: FastifyReply) => {
-    const alunosService = new AlunosServiceImplementation();
-    const result = await alunosController.getAll(request, reply, alunosService);
-    reply.send({ result });
+  app.get('/alunos', async (_, reply: FastifyReply) => {
+    try {
+      const repository = new StudentRepository();
+      const result = await studentsController.getAll(repository);
+      reply.send(result);
+    } catch (error: any) {
+      reply.status(400).send({ error: error.message });
+    }
   });
 };

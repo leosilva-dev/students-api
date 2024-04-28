@@ -1,4 +1,4 @@
-export interface IAluno {
+export interface IStudent {
   id: string;
   name: string;
   email: string;
